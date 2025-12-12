@@ -1,32 +1,19 @@
-import db from "@/lib/db";
 import { inngest } from "./client";
+import { generateText } from "ai";
+import { google } from "@ai-sdk/google";
 
-export const helloWorld = inngest.createFunction(
-  { id: "hello-world" },
-  { event: "test/hello.world" },
+export const execute = inngest.createFunction(
+  { id: "execute-ai" },
+  { event: "execute/ai" },
   async ({ event, step }) => {
-    // fetching video from YouTube
-    await step.sleep("fetching-video", "6s");
+    await step.sleep("wait", "5s");
 
-    // transcribing
-    await step.sleep("transcribing", "6s");
-
-    // sending to ai
-    await step.sleep("sending-to-ai", "6s");
-
-    // onSuccess
-    await step.run("create-workflow", () => {
-      return db.workflow.create({
-        data: {
-          name: "workflow-from-inngest",
-        },
-      });
+    const { steps } = await step.ai.wrap("gemini-generate-text", generateText, {
+      model: google("gemini-2.5-flash"),
+      system: "you are a helpful assistant",
+      prompt: "tell me 1 joke",
     });
 
-    // last return
-    return {
-      success: true,
-      message: `Job queued`,
-    };
+    return { steps };
   },
 );
