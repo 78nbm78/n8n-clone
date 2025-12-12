@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -6,7 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, type SignupInput } from "../schemas/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -37,19 +44,18 @@ const SignupForm = () => {
           name: values.name,
           email: values.email,
           password: values.password,
-          callbackURL: "/"
+          callbackURL: "/",
         },
         {
           onSuccess: () => {
-            toast.success("Signed up successfully!")
-            router.push("/")
+            toast.success("Signed up successfully!");
+            router.push("/");
           },
           onError: (ctx) => {
-            toast.error(ctx.error.message)
-          }
-        }
-      )
-
+            toast.error(ctx.error.message);
+          },
+        },
+      );
     } catch (error) {
       console.error(error);
       toast.error("An error occurred");
@@ -61,8 +67,7 @@ const SignupForm = () => {
   const handleGoogleSignup = async () => {
     setIsGoogleLoading(true);
     try {
-      console.log("handle login with Google")
-
+      console.log("handle login with Google");
     } catch (error) {
       console.error(error);
       toast.error("An error occurred");
@@ -167,7 +172,9 @@ const SignupForm = () => {
           <div className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with
+          </span>
         </div>
       </div>
 
@@ -185,7 +192,12 @@ const SignupForm = () => {
           </>
         ) : (
           <>
-            <Image src="/images/google.svg" alt="Google" width={20} height={20} />
+            <Image
+              src="/images/google.svg"
+              alt="Google"
+              width={20}
+              height={20}
+            />
             Google
           </>
         )}
@@ -193,12 +205,15 @@ const SignupForm = () => {
 
       <p className="text-center text-sm text-muted-foreground">
         Already have an account?{" "}
-        <Link href="/login" className="font-semibold text-primary hover:underline">
+        <Link
+          href="/login"
+          className="font-semibold text-primary hover:underline"
+        >
           Log in
         </Link>
       </p>
     </React.Fragment>
   );
-}
+};
 
 export default SignupForm;

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,14 @@ import { useRouter } from "next/navigation";
 import { loginSchema, type LoginInput } from "../schemas/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 
@@ -34,17 +41,17 @@ const LoginForm = () => {
         {
           email: values.email,
           password: values.password,
-          callbackURL: "/"
+          callbackURL: "/",
         },
         {
           onSuccess: () => {
-            router.push("/")
+            router.push("/");
           },
           onError: (ctx) => {
-            toast.error(ctx.error.message)
-          }
-        }
-      )
+            toast.error(ctx.error.message);
+          },
+        },
+      );
       // const result = await signIn(values.email, values.password);
       // if (result?.success) {
       //   toast.success("Logged in successfully");
@@ -63,7 +70,7 @@ const LoginForm = () => {
   const handleGoogleLogin = async () => {
     setIsGoogleLoading(true);
     try {
-      console.log("handle login with Google")
+      console.log("handle login with Google");
     } catch (error) {
       console.error(error);
       toast.error("An error occurred");
@@ -76,7 +83,9 @@ const LoginForm = () => {
     <React.Fragment>
       <div className="space-y-2 text-center">
         <h1 className="text-2xl font-bold">Login</h1>
-        <p className="text-muted-foreground">Enter your credentials to access your account</p>
+        <p className="text-muted-foreground">
+          Enter your credentials to access your account
+        </p>
       </div>
 
       <Form {...form}>
@@ -131,7 +140,9 @@ const LoginForm = () => {
           <div className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with
+          </span>
         </div>
       </div>
 
@@ -149,7 +160,12 @@ const LoginForm = () => {
           </>
         ) : (
           <>
-            <Image src="/images/google.svg" alt="Google" width={20} height={20} />
+            <Image
+              src="/images/google.svg"
+              alt="Google"
+              width={20}
+              height={20}
+            />
             Google
           </>
         )}
@@ -157,12 +173,15 @@ const LoginForm = () => {
 
       <p className="text-center text-sm text-muted-foreground">
         Don't have an account?{" "}
-        <Link href="/signup" className="font-semibold text-primary hover:underline">
+        <Link
+          href="/signup"
+          className="font-semibold text-primary hover:underline"
+        >
           Sign up
         </Link>
       </p>
     </React.Fragment>
   );
-}
+};
 
 export default LoginForm;

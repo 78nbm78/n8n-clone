@@ -16,6 +16,6 @@ const HomePage = async () => {
       <LogoutBtn />
     </section>
   );
-}
+};
 
 export default HomePage;
