@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -72,7 +73,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto space-y-6">
+    <React.Fragment>
       <div className="space-y-2 text-center">
         <h1 className="text-2xl font-bold">Login</h1>
         <p className="text-muted-foreground">Enter your credentials to access your account</p>
@@ -141,8 +142,17 @@ const LoginForm = () => {
         disabled={isGoogleLoading}
         onClick={handleGoogleLogin}
       >
-        {isGoogleLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        {isGoogleLoading ? "Connecting..." : "Google"}
+        {isGoogleLoading ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Connecting...
+          </>
+        ) : (
+          <>
+            <Image src="/images/google.svg" alt="Google" width={20} height={20} />
+            Google
+          </>
+        )}
       </Button>
 
       <p className="text-center text-sm text-muted-foreground">
@@ -151,7 +161,7 @@ const LoginForm = () => {
           Sign up
         </Link>
       </p>
-    </div>
+    </React.Fragment>
   );
 }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, type SignupInput } from "../schemas/auth";
@@ -12,6 +12,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const SignupForm = () => {
   const router = useRouter();
@@ -71,7 +72,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto space-y-6">
+    <React.Fragment>
       <div className="space-y-2 text-center">
         <h1 className="text-2xl font-bold">Create Account</h1>
         <p className="text-muted-foreground">Sign up to get started</p>
@@ -177,8 +178,17 @@ const SignupForm = () => {
         disabled={isGoogleLoading}
         onClick={handleGoogleSignup}
       >
-        {isGoogleLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        {isGoogleLoading ? "Connecting..." : "Google"}
+        {isGoogleLoading ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Connecting...
+          </>
+        ) : (
+          <>
+            <Image src="/images/google.svg" alt="Google" width={20} height={20} />
+            Google
+          </>
+        )}
       </Button>
 
       <p className="text-center text-sm text-muted-foreground">
@@ -187,7 +197,7 @@ const SignupForm = () => {
           Log in
         </Link>
       </p>
-    </div>
+    </React.Fragment>
   );
 }
 

@@ -7,6 +7,17 @@ export const appRouter = createTRPCRouter({
         return db.user.findMany();
     }),
 
+    user: {
+        getAllUsers: protectedProcedure.query(() => {
+            return db.user.findMany();
+        }),
+        getUserById: protectedProcedure.query(({ ctx }) => {
+            return db.user.findUnique({
+                where: { id: ctx.auth.user.id }
+            })
+        }),
+    },
+
     // getting data that needs authentication
     getUser: protectedProcedure.query(({ ctx }) => {
         return db.user.findUnique({
