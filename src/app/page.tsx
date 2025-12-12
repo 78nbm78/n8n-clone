@@ -1,7 +1,11 @@
-const HomePage = () => {
+import { caller } from "@/trpc/server";
+
+const HomePage = async () => {
+  const users = await caller.getUsers();
+
   return (
-    <>HomePage</>
+    <>{JSON.stringify(users)}</>
   );
 }
- 
+
 export default HomePage;
